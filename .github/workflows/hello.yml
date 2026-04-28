@@ -1,9 +1,9 @@
-name: Check README
+name: Skill Checks
 
 on: [push]
 
 jobs:
-  check-readme:
+  skill-checks:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -11,8 +11,15 @@ jobs:
       - name: README must exist
         run: |
           if [ ! -f README.md ]; then
-            echo "README.md がありません"
+            echo "❌ Skill violation: README.md がありません"
             exit 1
           fi
+          echo "✅ README.md OK"
 
-          echo "README.md が存在します"
+      - name: skill directory must exist
+        run: |
+          if [ ! -d skill ]; then
+            echo "❌ Skill violation: skill/ ディレクトリがありません"
+            exit 1
+          fi
+          echo "✅ skill/ OK"
